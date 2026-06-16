@@ -1,0 +1,316 @@
+---
+---
+
+<section class="hero" aria-label="Presentación">
+  <p class="hero-prompt" aria-hidden="true">
+    <span class="prompt-path">~/oscar-rojas</span>
+    <span class="prompt-symbol">$</span>
+    <span class="prompt-cmd" id="typed-cmd"></span><span class="cursor"></span>
+  </p>
+
+  <h1 class="hero-name">
+    <span class="line line-1">OSCAR</span>
+    <span class="line line-2">ROJAS<span class="accent-dot">.</span></span>
+  </h1>
+
+  <div class="hero-bottom">
+    <div class="hero-left">
+      <p class="hero-tagline">
+        Programador full stack enfocado en desarrollo web, automatización y herramientas de sistema. Me gusta transformar ideas en productos funcionales, escalables y útiles para quienes los utilizan.
+      </p>
+      <div class="hero-actions">
+        <button type="button" class="btn-cv" id="cv-btn" aria-describedby="cv-note">
+          descargar cv <span class="btn-icon">↓</span>
+        </button>
+        <a
+          href="https://github.com/rx3card"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-ghost">ver github ↗</a
+        >
+      </div>
+      <p class="cv-note" id="cv-note" role="status" aria-live="polite" hidden>
+        <span class="cv-note-mark">!</span>
+        El CV todavía está en desarrollo. Inténtalo más tarde.
+      </p>
+    </div>
+
+    <div class="hero-meta">
+      <p class="meta-line">Ibagué, Tolima — Colombia</p>
+      <p class="meta-line"><span id="local-time">--:--:--</span> COT (UTC-5)</p>
+      <p class="meta-line status">disponible para trabajar</p>
+    </div>
+  </div>
+
+  <a href="#proyectos" class="scroll-hint" aria-label="Bajar a proyectos">
+    scroll ↓
+  </a>
+</section>
+
+<script>
+  // Typing effect for the terminal prompt
+  const cmd = 'whoami';
+  const el = document.getElementById('typed-cmd');
+  if (el) {
+    let i = 0;
+    const type = () => {
+      if (i <= cmd.length) {
+        el.textContent = cmd.slice(0, i);
+        i++;
+        setTimeout(type, 110 + Math.random() * 90);
+      }
+    };
+    setTimeout(type, 500);
+  }
+
+  // Live clock — Colombia time
+  const timeEl = document.getElementById('local-time');
+  const tick = () => {
+    if (!timeEl) return;
+    timeEl.textContent = new Date().toLocaleTimeString('es-CO', {
+      timeZone: 'America/Bogota',
+      hour12: false,
+    });
+  };
+  tick();
+  setInterval(tick, 1000);
+
+  // CV todavía no disponible — mostrar aviso al hacer clic
+  const cvBtn = document.getElementById('cv-btn');
+  const cvNote = document.getElementById('cv-note');
+  let cvTimer;
+  if (cvBtn && cvNote) {
+    cvBtn.addEventListener('click', () => {
+      cvNote.hidden = false;
+      cvNote.classList.remove('show');
+      void cvNote.offsetWidth; // reinicia la animación
+      cvNote.classList.add('show');
+      clearTimeout(cvTimer);
+      cvTimer = setTimeout(() => {
+        cvNote.hidden = true;
+      }, 5000);
+    });
+  }
+</script>
+
+<style>
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-top: none;
+    padding-top: 7rem;
+    position: relative;
+  }
+
+  .hero-prompt {
+    font-family: var(--font-mono);
+    font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+    margin-bottom: clamp(1rem, 3vh, 2rem);
+  }
+
+  .prompt-path {
+    color: var(--muted);
+  }
+
+  .prompt-symbol {
+    color: var(--accent);
+    margin-inline: 0.4em 0.5em;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 0.6em;
+    height: 1.15em;
+    background: var(--accent);
+    vertical-align: text-bottom;
+    margin-left: 2px;
+    animation: blink 1.05s steps(1) infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .hero-name {
+    font-size: clamp(3rem, 10vw, 8.5rem);
+    line-height: 0.9;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    text-transform: uppercase;
+    margin-left: -0.05em;
+  }
+
+  .hero-name .line {
+    display: block;
+  }
+
+  .hero-name .line-2 {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--ink);
+  }
+
+  .accent-dot {
+    color: var(--accent);
+    -webkit-text-stroke: 0;
+  }
+
+  .hero-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: clamp(2.5rem, 6vh, 4.5rem);
+  }
+
+  .hero-left {
+    display: grid;
+    gap: 1.6rem;
+  }
+
+  .hero-tagline {
+    max-width: 34rem;
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    font-weight: 300;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .btn-cv {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--accent-fill);
+    color: var(--accent-ink);
+    padding: 0.85em 1.6em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .btn-cv:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 4px 4px 0 0 var(--ink);
+  }
+
+  .btn-cv .btn-icon {
+    transition: transform 0.25s ease;
+  }
+
+  .btn-cv:hover .btn-icon {
+    transform: translateY(2px);
+  }
+
+  .btn-ghost {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.85em 1.2em;
+    border: 1px solid var(--line);
+    transition: color 0.25s ease, border-color 0.25s ease;
+  }
+
+  .btn-ghost:hover {
+    color: var(--ink);
+    border-color: var(--accent);
+  }
+
+  .cv-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--muted);
+    border-left: 2px solid var(--accent);
+    padding: 0.4em 0.8em;
+    background: var(--bg-raise);
+    width: fit-content;
+    max-width: 34rem;
+  }
+
+  .cv-note[hidden] {
+    display: none;
+  }
+
+  .cv-note.show {
+    animation: cv-note-in 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .cv-note-mark {
+    flex-shrink: 0;
+    width: 1.25em;
+    height: 1.25em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 700;
+    font-size: 0.78em;
+  }
+
+  @keyframes cv-note-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .hero-meta {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    display: grid;
+    gap: 0.45rem;
+    text-align: right;
+  }
+
+  .status {
+    color: var(--accent);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    transition: color 0.25s ease;
+  }
+
+  .scroll-hint:hover {
+    color: var(--accent);
+  }
+
+  @media (max-width: 640px) {
+    .hero-meta {
+      text-align: left;
+    }
+  }
+</style>

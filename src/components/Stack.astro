@@ -1,0 +1,193 @@
+---
+const DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
+
+type Item = { name: string; icon?: string; dark?: boolean };
+type Group = { key: string; title: string; items: Item[] };
+
+const groups: Group[] = [
+  {
+    key: 'lenguajes',
+    title: 'lenguajes',
+    items: [
+      { name: 'C', icon: `${DEVICON}/c/c-original.svg` },
+      { name: 'Python', icon: `${DEVICON}/python/python-original.svg` },
+      { name: 'TypeScript', icon: `${DEVICON}/typescript/typescript-original.svg` },
+      { name: 'JavaScript', icon: `${DEVICON}/javascript/javascript-original.svg` },
+      { name: 'Bash', icon: `${DEVICON}/bash/bash-original.svg`, dark: true },
+    ],
+  },
+  {
+    key: 'frontend',
+    title: 'frontend',
+    items: [
+      { name: 'React', icon: `${DEVICON}/react/react-original.svg` },
+      { name: 'Next.js', icon: `${DEVICON}/nextjs/nextjs-original.svg`, dark: true },
+      { name: 'Astro', icon: `${DEVICON}/astro/astro-original.svg` },
+      { name: 'Tailwind', icon: `${DEVICON}/tailwindcss/tailwindcss-original.svg` },
+      { name: 'HTML5', icon: `${DEVICON}/html5/html5-original.svg` },
+      { name: 'CSS3', icon: `${DEVICON}/css3/css3-original.svg` },
+    ],
+  },
+  {
+    key: 'backend',
+    title: 'backend & datos',
+    items: [
+      { name: 'Node.js', icon: `${DEVICON}/nodejs/nodejs-original.svg` },
+      { name: 'SQLite', icon: `${DEVICON}/sqlite/sqlite-original.svg` },
+      { name: 'Supabase', icon: `${DEVICON}/supabase/supabase-original.svg` },
+      { name: 'Socket.IO', icon: `${DEVICON}/socketio/socketio-original.svg`, dark: true },
+      { name: 'OpenAI API' },
+      { name: 'WhatsApp Business API' },
+    ],
+  },
+  {
+    key: 'sistema',
+    title: 'sistema & herramientas',
+    items: [
+      { name: 'Linux', icon: `${DEVICON}/linux/linux-original.svg` },
+      { name: 'Git', icon: `${DEVICON}/git/git-original.svg` },
+      { name: 'Vim', icon: `${DEVICON}/vim/vim-original.svg` },
+      { name: 'dwm' },
+      { name: 'PM2' },
+      { name: 'Vercel' },
+    ],
+  },
+];
+---
+
+<section id="stack" aria-label="Stack">
+  <div class="section-head reveal">
+    <span class="label">[03] — Stack</span>
+    <span class="count">$ cat ~/.config/stack.toml</span>
+  </div>
+
+  <div class="stack-grid">
+    {
+      groups.map((group) => (
+        <div class="stack-group reveal">
+          <h3 class="stack-title">
+            <span class="bracket">[</span>{group.title}<span class="bracket">]</span>
+          </h3>
+          <ul class="stack-items">
+            {group.items.map((item) => (
+              <li class="stack-item">
+                {item.icon ? (
+                  <img
+                    src={item.icon}
+                    alt=""
+                    width="20"
+                    height="20"
+                    loading="lazy"
+                    class={item.dark ? 'dark-logo' : ''}
+                  />
+                ) : (
+                  <span class="stack-marker" aria-hidden="true">▸</span>
+                )}
+                <span>{item.name}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .stack-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  @media (min-width: 560px) {
+    .stack-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .stack-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .stack-group {
+    background: var(--bg);
+    padding: clamp(1.4rem, 2.5vw, 2rem);
+    display: grid;
+    gap: 1.1rem;
+    align-content: start;
+    transition: background 0.3s ease;
+  }
+
+  .stack-group:hover {
+    background: var(--bg-raise);
+  }
+
+  .stack-title {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    text-transform: lowercase;
+  }
+
+  .bracket {
+    color: var(--accent);
+  }
+
+  .stack-items {
+    list-style: none;
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .stack-item {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .stack-item img {
+    flex-shrink: 0;
+    filter: grayscale(1) opacity(0.75);
+    transition: filter 0.25s ease;
+  }
+
+  .stack-marker {
+    flex-shrink: 0;
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+    color: var(--accent);
+    font-size: 0.85em;
+  }
+
+  .stack-item img.dark-logo {
+    filter: invert(1) grayscale(1) opacity(0.75);
+  }
+
+  :global(html[data-theme='light']) .stack-item img.dark-logo {
+    filter: grayscale(1) opacity(0.75);
+  }
+
+  .stack-group:hover .stack-item img {
+    filter: none;
+  }
+
+  .stack-group:hover .stack-item img.dark-logo {
+    filter: invert(1);
+  }
+
+  :global(html[data-theme='light']) .stack-group:hover .stack-item img.dark-logo {
+    filter: none;
+  }
+</style>

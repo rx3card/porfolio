@@ -1,0 +1,514 @@
+---
+const DEVICON = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons";
+
+type Tag = { name: string; icon?: string; dark?: boolean };
+
+const TAG: Record<string, Tag> = {
+  nextjs: { name: "Next.js", icon: `${DEVICON}/nextjs/nextjs-original.svg`, dark: true },
+  react: { name: "React", icon: `${DEVICON}/react/react-original.svg` },
+  typescript: { name: "TypeScript", icon: `${DEVICON}/typescript/typescript-original.svg` },
+  javascript: { name: "JavaScript", icon: `${DEVICON}/javascript/javascript-original.svg` },
+  sqlite: { name: "SQLite", icon: `${DEVICON}/sqlite/sqlite-original.svg` },
+  socketio: { name: "Socket.IO", icon: `${DEVICON}/socketio/socketio-original.svg`, dark: true },
+  openai: { name: "OpenAI" },
+  metaapi: { name: "Meta API" },
+  accesibilidad: { name: "Accesibilidad" },
+  saludvisual: { name: "Salud visual" },
+  c: { name: "C", icon: `${DEVICON}/c/c-original.svg` },
+  shell: { name: "Shell", icon: `${DEVICON}/bash/bash-original.svg`, dark: true },
+  powershell: { name: "PowerShell", icon: `${DEVICON}/powershell/powershell-original.svg` },
+  performance: { name: "Performance" },
+};
+
+const tag = (key: string, override?: string): Tag =>
+  override ? { ...TAG[key], name: override } : TAG[key];
+
+const featured = [
+  {
+    index: "01",
+    name: "Ricardo Serrano y Cia",
+    badge: "EN PRODUCCIÓN",
+    description:
+      "Plataforma web completa para una agencia de seguros real, desarrollada durante más de 6 meses. Sitio público + panel administrativo con CRM, gestión de pólizas y vencimientos, bot de WhatsApp (Meta Business API), asistente BI con IA, chat en tiempo real, informes contables y correos automatizados.",
+    tags: [
+      tag("nextjs", "Next.js 16"),
+      tag("react", "React 19"),
+      tag("typescript"),
+      tag("sqlite"),
+      tag("socketio"),
+      tag("openai"),
+      tag("metaapi"),
+    ],
+    year: "2025–26",
+    url: "https://www.ricardoserranoasesores.com",
+    linkLabel: "ricardoserranoasesores.com",
+  },
+  {
+    index: "04",
+    name: "Test Daltonismo",
+    badge: "LIVE",
+    description:
+      "Aplicación web para detectar daltonismo basada en el test de Ishihara: prueba diagnóstica, modo entrenamiento, historia del test original y consejos prácticos.",
+    tags: [tag("javascript"), tag("accesibilidad"), tag("saludvisual")],
+    year: "2025",
+    url: "https://test-daltonismo.vercel.app",
+    linkLabel: "test-daltonismo.vercel.app",
+  },
+  {
+    index: "02",
+    name: "cfetch",
+    description:
+      "Herramienta de información del sistema escrita en C puro. 3ms de ejecución frente a los 220ms de neofetch — cero dependencias, multiplataforma (Linux, Windows, macOS), menos de 1MB.",
+    tags: [tag("c"), tag("shell"), tag("powershell"), tag("performance")],
+    year: "2026",
+    url: "https://github.com/rx3card/cfetch",
+    linkLabel: "github.com/rx3card/cfetch",
+  },
+
+  // {
+  //   index: '03',
+  //   name: 'Portafolio personal',
+  //   description:
+  //     'Sitio web personal construido con Astro, optimizado para rendimiento y experiencia de usuario. Diseño minimalista, animaciones suaves y enfoque en la presentación clara de proyectos y habilidades.',
+  //   tags: ['Astro', 'React', 'TypeScript', 'CSS'],
+  //   year: '2026',
+  //   url: '/',
+  //   linkLabel: 'oscarroj.as',
+  // }
+];
+
+const LANG_ICON: Record<string, { icon: string; dark?: boolean }> = {
+  JavaScript: { icon: `${DEVICON}/javascript/javascript-original.svg` },
+  C: { icon: `${DEVICON}/c/c-original.svg` },
+  Python: { icon: `${DEVICON}/python/python-original.svg` },
+};
+
+const experiments = [
+  {
+    name: "Whatsapp-Archiver",
+    description:
+      "Utilidad en JavaScript para archivar conversaciones de WhatsApp.",
+    lang: "JavaScript",
+    url: "https://github.com/rx3card/Whatsapp-Archiver",
+  },
+  {
+    name: "dwm",
+    description: "Mi build personal del window manager dwm, parcheado a mano.",
+    lang: "C",
+    url: "https://github.com/rx3card/dwm",
+  },
+  {
+    name: "encrypted-text-editor",
+    description: "Editor de texto con cifrado integrado.",
+    lang: "Python",
+    url: "https://github.com/rx3card/encrypted-text-editor",
+  },
+  {
+    name: "pomodoro",
+    description: "Temporizador pomodoro minimalista para la terminal.",
+    lang: "Python",
+    url: "https://github.com/rx3card/pomodoro",
+  },
+  {
+    name: "simulator-neofetch",
+    description: "Simulación de neofetch — el prototipo que inspiró cfetch.",
+    lang: "Python",
+    url: "https://github.com/rx3card/simulator-neofetch",
+  },
+];
+---
+
+<section id="proyectos" aria-label="Proyectos">
+  <div class="section-head reveal">
+    <span class="label">[01] — Proyectos</span>
+    <span class="count"
+      >{featured.length} destacados / {experiments.length} experimentos</span
+    >
+  </div>
+
+  <ul class="project-list">
+    {
+      featured.map((p) => (
+        <li class="reveal">
+          <a
+            href={p.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="project-row"
+          >
+            <span class="p-index">{p.index}</span>
+            <span class="p-body">
+              <span class="p-title-row">
+                <span class="p-name">{p.name}</span>
+                {p.badge && <span class="p-badge">{p.badge}</span>}
+              </span>
+              <span class="p-desc">{p.description}</span>
+              <span class="p-link">→ {p.linkLabel}</span>
+              <span class="p-tags">
+                {p.tags.map((t) =>
+                  t.icon ? (
+                    <span class="p-tag p-tag--icon" title={t.name} aria-label={t.name}>
+                      <img
+                        src={t.icon}
+                        alt=""
+                        width="18"
+                        height="18"
+                        loading="lazy"
+                        class={t.dark ? "dark-logo" : ""}
+                      />
+                    </span>
+                  ) : (
+                    <span class="p-tag">{t.name}</span>
+                  )
+                )}
+              </span>
+            </span>
+            <span class="p-year">{p.year}</span>
+            <span class="p-arrow" aria-hidden="true">
+              ↗
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h3 class="experiments-title reveal">más experimentos —</h3>
+  <ul class="experiments-grid">
+    {
+      experiments.map((e) => (
+        <li class="reveal">
+          <a
+            href={e.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="exp-card"
+          >
+            <span class="exp-top">
+              <span class="exp-name">{e.name}</span>
+              {LANG_ICON[e.lang] ? (
+                <span class="exp-lang-icon" title={e.lang} aria-label={e.lang}>
+                  <img
+                    src={LANG_ICON[e.lang].icon}
+                    alt=""
+                    width="18"
+                    height="18"
+                    loading="lazy"
+                    class={LANG_ICON[e.lang].dark ? "dark-logo" : ""}
+                  />
+                </span>
+              ) : (
+                <span class="exp-lang">{e.lang}</span>
+              )}
+            </span>
+            <span class="exp-desc">{e.description}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .project-list {
+    list-style: none;
+  }
+
+  .project-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    align-items: start;
+    gap: clamp(1rem, 3vw, 3rem);
+    padding: clamp(1.5rem, 3.5vh, 2.5rem) clamp(0.75rem, 2vw, 1.5rem);
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* relleno que sube suave desde abajo al pasar el cursor */
+  .project-row::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--accent-fill);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .project-row > * {
+    position: relative;
+  }
+
+  .project-list li:first-child .project-row {
+    border-top: 1px solid var(--line);
+  }
+
+  .project-row:hover {
+    color: var(--accent-ink);
+  }
+
+  .project-row:hover::before {
+    transform: scaleY(1);
+  }
+
+  .p-index {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding-top: 0.6rem;
+    transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .project-row:hover .p-index {
+    color: var(--accent-ink);
+  }
+
+  .p-body {
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .p-title-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem 1rem;
+  }
+
+  .p-name {
+    font-size: clamp(1.8rem, 4.5vw, 3.2rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+  }
+
+  .p-badge {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    background: var(--accent-fill);
+    color: var(--accent-ink);
+    padding: 0.35em 0.8em;
+    white-space: nowrap;
+    transition:
+      background 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+      color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .project-row:hover .p-badge {
+    background: var(--accent-ink);
+    color: var(--accent-fill);
+  }
+
+  .p-link {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .project-row:hover .p-link {
+    color: var(--accent-ink);
+    font-weight: 700;
+  }
+
+  .p-desc {
+    max-width: 42rem;
+    font-size: 0.95rem;
+    font-weight: 300;
+    color: var(--muted);
+    transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .project-row:hover .p-desc {
+    color: var(--accent-ink);
+  }
+
+  .p-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.2rem;
+  }
+
+  .p-tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border: 1px solid currentColor;
+    padding: 0.25em 0.7em;
+    border-radius: 999px;
+    opacity: 0.75;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .p-tag--icon {
+    padding: 0.35em;
+    width: 1.95rem;
+    height: 1.95rem;
+    border: none;
+    opacity: 1;
+  }
+
+  .p-tag--icon img {
+    width: 18px;
+    height: 18px;
+    filter: grayscale(1) opacity(0.85);
+    transition: filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .p-tag--icon img.dark-logo {
+    filter: invert(1) grayscale(1) opacity(0.85);
+  }
+
+  :global(html[data-theme='light']) .p-tag--icon img.dark-logo {
+    filter: grayscale(1) opacity(0.85);
+  }
+
+  .project-row:hover .p-tag--icon img {
+    filter: none;
+  }
+
+  .project-row:hover .p-tag--icon img.dark-logo {
+    filter: invert(1);
+  }
+
+  :global(html[data-theme='light']) .project-row:hover .p-tag--icon img.dark-logo {
+    filter: none;
+  }
+
+  .p-year {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding-top: 0.6rem;
+    transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .project-row:hover .p-year {
+    color: var(--accent-ink);
+  }
+
+  .p-arrow {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    padding-top: 0.2rem;
+    transform: translate(0, 0);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .project-row:hover .p-arrow {
+    transform: translate(6px, -6px);
+  }
+
+  .experiments-title {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: var(--muted);
+    margin: clamp(3rem, 8vh, 5rem) 0 1.75rem;
+  }
+
+  .experiments-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .exp-card {
+    display: grid;
+    gap: 0.7rem;
+    align-content: start;
+    background: var(--bg);
+    padding: 1.5rem;
+    height: 100%;
+    transition: background 0.3s ease;
+  }
+
+  .exp-card:hover {
+    background: var(--bg-raise);
+  }
+
+  .exp-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .exp-name {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+
+  .exp-card:hover .exp-name {
+    color: var(--accent);
+  }
+
+  .exp-lang {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .exp-lang-icon {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .exp-lang-icon img {
+    width: 18px;
+    height: 18px;
+    filter: grayscale(1) opacity(0.75);
+    transition: filter 0.3s ease;
+  }
+
+  .exp-lang-icon img.dark-logo {
+    filter: invert(1) grayscale(1) opacity(0.75);
+  }
+
+  :global(html[data-theme='light']) .exp-lang-icon img.dark-logo {
+    filter: grayscale(1) opacity(0.75);
+  }
+
+  .exp-card:hover .exp-lang-icon img {
+    filter: none;
+  }
+
+  .exp-card:hover .exp-lang-icon img.dark-logo {
+    filter: invert(1);
+  }
+
+  :global(html[data-theme='light']) .exp-card:hover .exp-lang-icon img.dark-logo {
+    filter: none;
+  }
+
+  .exp-desc {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--muted);
+  }
+
+  @media (max-width: 720px) {
+    .project-row {
+      grid-template-columns: auto 1fr auto;
+    }
+    .p-year {
+      display: none;
+    }
+  }
+</style>

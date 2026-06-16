@@ -1,0 +1,133 @@
+---
+const DEVICON = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
+
+const skills = [
+  { name: 'C', icon: `${DEVICON}/c/c-original.svg` },
+  { name: 'Python', icon: `${DEVICON}/python/python-original.svg` },
+  { name: 'TypeScript', icon: `${DEVICON}/typescript/typescript-original.svg` },
+  { name: 'JavaScript', icon: `${DEVICON}/javascript/javascript-original.svg` },
+  { name: 'React', icon: `${DEVICON}/react/react-original.svg` },
+  { name: 'Next.js', icon: `${DEVICON}/nextjs/nextjs-original.svg`, dark: true },
+  { name: 'Astro', icon: `${DEVICON}/astro/astro-original.svg` },
+  { name: 'Tailwind CSS', icon: `${DEVICON}/tailwindcss/tailwindcss-original.svg` },
+  { name: 'Supabase', icon: `${DEVICON}/supabase/supabase-original.svg` },
+  { name: 'Node.js', icon: `${DEVICON}/nodejs/nodejs-original.svg` },
+  { name: 'SQLite', icon: `${DEVICON}/sqlite/sqlite-original.svg` },
+  { name: 'Linux', icon: `${DEVICON}/linux/linux-original.svg` },
+  { name: 'Git', icon: `${DEVICON}/git/git-original.svg` },
+  { name: 'HTML5', icon: `${DEVICON}/html5/html5-original.svg` },
+  { name: 'CSS3', icon: `${DEVICON}/css3/css3-original.svg` },
+];
+---
+
+<div class="marquee" aria-label="Tecnologías que manejo">
+  <div class="marquee-track">
+    {
+      [0, 1].map(() => (
+        <div class="marquee-group" aria-hidden="true">
+          {skills.map((skill) => (
+            <span class="marquee-item">
+              <img
+                src={skill.icon}
+                alt=""
+                width="22"
+                height="22"
+                loading="lazy"
+                class={skill.dark ? 'dark-logo' : ''}
+              />
+              {skill.name}
+            </span>
+          ))}
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .marquee {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+    padding-block: 1.1rem;
+    user-select: none;
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: scroll 40s linear infinite;
+  }
+
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  .marquee-group {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    padding-inline: 1.4rem;
+    white-space: nowrap;
+    transition: color 0.25s ease;
+  }
+
+  .marquee-item img {
+    filter: grayscale(1) opacity(0.65);
+    transition: filter 0.25s ease;
+  }
+
+  .marquee-item img.dark-logo {
+    filter: invert(1) grayscale(1) opacity(0.65);
+  }
+
+  /* en modo claro los logos oscuros no se invierten */
+  :global(html[data-theme='light']) .marquee-item img.dark-logo {
+    filter: grayscale(1) opacity(0.65);
+  }
+
+  :global(html[data-theme='light']) .marquee-item:hover img.dark-logo {
+    filter: none;
+  }
+
+  .marquee-item:hover {
+    color: var(--ink);
+  }
+
+  .marquee-item:hover img {
+    filter: none;
+  }
+
+  .marquee-item:hover img.dark-logo {
+    filter: invert(1);
+  }
+
+  .star {
+    color: var(--accent);
+    margin-left: 2.4rem;
+    font-size: 0.7em;
+    vertical-align: middle;
+  }
+
+  @keyframes scroll {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+  }
+</style>

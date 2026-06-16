@@ -1,0 +1,244 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Oscar Rojas — Programador Full Stack',
+  description =
+    'Programador full stack en Ibagué, Colombia. Trabajo con C, Python y TypeScript: desde herramientas de sistema hasta plataformas web en producción con React y Next.js.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Oscar Rojas" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script is:inline>
+      // Aplica el tema antes del primer render para evitar parpadeo
+      (() => {
+        const saved = localStorage.getItem('theme');
+        const theme =
+          saved ||
+          (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+
+    <header class="nav frame">
+      <a href="#top" class="nav-logo">
+        <span class="prompt">&gt;_</span><span class="logo-text"> oscar.rojas</span>
+      </a>
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a href="#proyectos"><span>[01]</span> proyectos</a>
+        <a href="#sobre-mi"><span>[02]</span> sobre mí</a>
+        <a href="#stack"><span>[03]</span> stack</a>
+        <a href="#contacto"><span>[04]</span> contacto</a>
+        <a
+          href="https://github.com/rx3card"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="nav-github">github ↗</a
+        >
+        <button id="theme-toggle" class="theme-toggle" aria-label="Cambiar entre modo claro y oscuro">
+          <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.5"></circle>
+            <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M19.4 4.6l-1.8 1.8M6.4 17.6l-1.8 1.8"></path>
+          </svg>
+          <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>
+          </svg>
+        </button>
+      </nav>
+    </header>
+
+    <main id="top" class="frame">
+      <slot />
+    </main>
+
+    <footer class="footer frame">
+      <div class="footer-row">
+        <p class="footer-mono">© 2026 Oscar Rojas</p>
+        <p class="footer-mono footer-coords">4.4389° N, 75.2322° W — Ibagué, Tolima</p>
+        <p class="footer-mono">
+          Hecho a mano con <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Scroll reveal
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.12 }
+      );
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+      // Cambio de tema claro/oscuro
+      const toggle = document.getElementById('theme-toggle');
+      toggle?.addEventListener('click', () => {
+        const next =
+          document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+        document.documentElement.dataset.theme = next;
+        localStorage.setItem('theme', next);
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 1.1rem;
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-logo .prompt {
+    color: var(--accent);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    text-transform: lowercase;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    transition: color 0.25s ease;
+  }
+
+  .nav-links a span {
+    color: var(--accent);
+    opacity: 0.7;
+  }
+
+  .nav-links a:hover {
+    color: var(--ink);
+  }
+
+  .nav-github {
+    color: var(--ink) !important;
+  }
+
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    transition: color 0.3s ease, border-color 0.3s ease;
+  }
+
+  .theme-toggle:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* en oscuro se ofrece el sol; en claro, la luna */
+  .theme-toggle .icon-moon {
+    display: none;
+  }
+
+  :global(html[data-theme='light']) .theme-toggle .icon-sun {
+    display: none;
+  }
+
+  :global(html[data-theme='light']) .theme-toggle .icon-moon {
+    display: block;
+  }
+
+  @media (max-width: 640px) {
+    .nav-links a span {
+      display: none;
+    }
+    .logo-text {
+      display: none;
+    }
+    .nav-links {
+      gap: 0.7rem;
+      font-size: 0.68rem;
+      align-items: center;
+    }
+    .nav-links a {
+      white-space: nowrap;
+    }
+    .theme-toggle {
+      width: 1.7rem;
+      height: 1.7rem;
+      flex-shrink: 0;
+    }
+  }
+
+  .footer {
+    border-top: 1px solid var(--line);
+    padding-block: 2rem;
+  }
+
+  .footer-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.75rem 2rem;
+  }
+
+  .footer-mono {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  .footer-mono a {
+    color: var(--ink);
+    border-bottom: 1px solid var(--accent);
+  }
+</style>

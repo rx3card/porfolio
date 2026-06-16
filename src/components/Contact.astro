@@ -1,0 +1,206 @@
+---
+---
+
+<section id="contacto" aria-label="Contacto">
+  <div class="section-head reveal">
+    <span class="label">[04] — Contacto</span>
+    <span class="count">respuesta &lt; 24h</span>
+  </div>
+
+  <div class="contact-inner reveal">
+    <p class="contact-kicker">
+      ¿Tienes un proyecto o una vacante? <strong>Hablemos.</strong>
+    </p>
+
+    <a href="mailto:rx3card@gmail.com" class="contact-email">
+      rx3card<span class="at">@</span>gmail.com
+      <span class="email-arrow" aria-hidden="true">↗</span>
+    </a>
+
+    <div class="contact-links">
+      <a
+        href="https://github.com/rx3card"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="contact-link"
+      >
+        <span class="bracket">[</span>github.com/rx3card<span class="bracket">]</span>
+      </a>
+      <span class="contact-sep">·</span>
+      <button type="button" class="contact-link cv-btn" id="cv-btn-contact" aria-describedby="cv-note-contact">
+        <span class="bracket">[</span>descargar cv.pdf ↓<span class="bracket">]</span>
+      </button>
+      <span class="contact-sep">·</span>
+      <span class="contact-link static">Ibagué, Tolima — Colombia</span>
+      <span class="contact-sep">·</span>
+      <span class="contact-link static">remoto / presencial / híbrido</span>
+    </div>
+
+    <p class="cv-note" id="cv-note-contact" role="status" aria-live="polite" hidden>
+      <span class="cv-note-mark">!</span>
+      El CV todavía está en desarrollo. Inténtalo más tarde.
+    </p>
+  </div>
+</section>
+
+<script>
+  const cvBtn = document.getElementById('cv-btn-contact');
+  const cvNote = document.getElementById('cv-note-contact');
+  let cvTimer;
+  if (cvBtn && cvNote) {
+    cvBtn.addEventListener('click', () => {
+      cvNote.hidden = false;
+      cvNote.classList.remove('show');
+      void cvNote.offsetWidth; // reinicia la animación
+      cvNote.classList.add('show');
+      clearTimeout(cvTimer);
+      cvTimer = setTimeout(() => {
+        cvNote.hidden = true;
+      }, 5000);
+    });
+  }
+</script>
+
+<style>
+  .contact-inner {
+    display: grid;
+    gap: clamp(1.5rem, 4vh, 2.5rem);
+    padding-block: clamp(1rem, 4vh, 3rem);
+  }
+
+  .contact-kicker {
+    font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+    font-weight: 300;
+    color: var(--muted);
+  }
+
+  .contact-kicker strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .contact-email {
+    font-size: clamp(2rem, 7.5vw, 6rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    word-break: break-all;
+    width: fit-content;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  .contact-email .at {
+    color: var(--accent);
+  }
+
+  .contact-email::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.08em;
+    width: 100%;
+    height: 0.045em;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .contact-email:hover::after {
+    transform: scaleX(1);
+  }
+
+  .email-arrow {
+    display: inline-block;
+    color: var(--accent);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .contact-email:hover .email-arrow {
+    transform: translate(0.08em, -0.08em);
+  }
+
+  .contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  .contact-link {
+    transition: color 0.25s ease;
+  }
+
+  .contact-link:not(.static):hover {
+    color: var(--accent);
+  }
+
+  .cv-btn {
+    font-family: inherit;
+    font-size: inherit;
+    color: var(--muted);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .bracket {
+    color: var(--accent);
+  }
+
+  .contact-sep {
+    color: var(--line);
+  }
+
+  .cv-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+    border-left: 2px solid var(--accent);
+    padding: 0.5em 0.85em;
+    background: var(--bg-raise);
+    width: fit-content;
+    max-width: 34rem;
+  }
+
+  .cv-note[hidden] {
+    display: none;
+  }
+
+  .cv-note.show {
+    animation: cv-note-in 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .cv-note-mark {
+    flex-shrink: 0;
+    width: 1.25em;
+    height: 1.25em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 700;
+    font-size: 0.78em;
+  }
+
+  @keyframes cv-note-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
