@@ -1,6 +1,6 @@
 # Portfolio
 
-Portfolio personal de Oscar Rojas (`rx3card`). Hecho a mano con [Astro](https://astro.build).
+Mi Portfolio (`rx3card`). Hecho a mano con [Astro](https://astro.build).
 
 ### Desarrollo
 
