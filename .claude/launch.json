@@ -7,6 +7,13 @@
       "runtimeArgs": ["run", "dev"],
       "port": 4321,
       "autoPort": true
+    },
+    {
+      "name": "talents",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["../talents/serve.mjs"],
+      "port": 4330,
+      "autoPort": true
     }
   ]
 }

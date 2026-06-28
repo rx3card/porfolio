@@ -180,7 +180,7 @@ const rightColumn = {
     bullet('Diseñé y desarrollé la plataforma integral de la agencia —sitio público y panel administrativo—, en operación diaria desde hace más de seis meses.'),
     bullet('CRM completo: asegurados, pólizas, vencimientos, comisiones, cartera e informes contables exportables.'),
     bullet('Bot de WhatsApp Business API (Meta) y asistente BI conversacional con OpenAI que responde sobre datos reales del negocio en lenguaje natural.'),
-    bullet('Chat interno en tiempo real (Socket.IO), correos programados y operación en producción. Next.js 16, React 19, TypeScript, SQLite, Node.js, PM2.'),
+    bullet('Chat interno en tiempo (Socket.IO), correos programados y operación en producción. Next.js 16, React 19, TypeScript, SQLite, Node.js, PM2.'),
 
     head('Proyectos', COL_R),
     entry('cfetch', 'Herramienta de sistema en C puro', 'github.com/rx3card/cfetch'),
