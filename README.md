@@ -5,10 +5,10 @@ Mi Portfolio (`rx3card`). Hecho a mano con [Astro](https://astro.build).
 ### Desarrollo
 
 ```bash
-npm install
-npm run dev      # http://localhost:4321
-npm run build    # genera ./dist
-npm run preview  # previsualiza el build
+pnpm install
+pnpm run dev      # http://localhost:4321
+pnpm run build    # genera ./dist
+pnpm run preview  # previsualiza el build
 ```
 
 ### Estructura
@@ -17,12 +17,12 @@ npm run preview  # previsualiza el build
 src/
 ├── layouts/Layout.astro      # head, nav, footer, scroll-reveal
 ├── pages/index.astro         # ensambla las secciones
-├── styles/global.css         # tokens de diseño, grano, frame
+├── styles/global.css         # tokens de diseño, frame
 └── components/
     ├── Hero.astro            # whoami + nombre gigante + reloj COT
     ├── Marquee.astro         # cinta infinita de tecnologías
     ├── Projects.astro        # destacados + experimentos
-    ├── About.astro           # bio + tarjeta "cfetch"
+    ├── About.astro           # bio
     └── Contact.astro         # email gigante + enlaces
 ```
 
@@ -38,7 +38,7 @@ node scripts/generate-cv.mjs
 
 ### Foto de perfil
 
-La foto del `cfetch` es `public/profile.jpg` (placeholder temporal) — reemplaza ese archivo con una foto cuadrada para actualizarla.
+La foto del `cfetch` es `public/profile.jpg`.
 
 ### Deploy
 
